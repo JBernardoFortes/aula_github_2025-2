@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +16,7 @@ public class Main {
 	}
 	public static void main(String[] args) {
 		Menu mainMenu =  new Menu("Menu Principal", Arrays.asList("Sair","Conta", "Cliente", "Operacoes", "Cadastrar Cliente", "Listar Clientes"));
+		List<Cliente> listaClientes = new ArrayList<>();
 		int op = 4;
 		while(op!=0){
 			op = mainMenu.getSelection();
@@ -31,6 +34,12 @@ public class Main {
 					break;
 				case 4:
 					Cliente cliente = cadastrarCliente();
+					listaClientes.add(cliente);
+					break;
+				case 5:
+					for (Cliente c: listaClientes) {
+						System.out.println(c);
+					}
 					break;
 				default:
 					System.out.println("Opcao invalida!");
