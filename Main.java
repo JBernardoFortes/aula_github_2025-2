@@ -27,7 +27,7 @@ public class Main {
                                            "Operacoes", "Cadastrar Cliente",
                                            "Listar Clientes", "Criar Conta",
                                            "Listar Contas", "Excluir Conta"));
-    ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
     int op = 4;
     while (op != 0) {
       op = mainMenu.getSelection(sc);
@@ -69,24 +69,22 @@ public class Main {
 
         System.out.println("### Cliente selecionado : " +
                            selectedClient.getNome());
-        System.out.println("### Crie e vincule a conta ao cliente: ");
 
-        int agencia, saldo, numero;
+        int agencia;
+        double saldo;
         System.out.println("### Informe o numero da agencia: ");
         agencia = sc.nextInt();
         sc.nextLine();
         System.out.println("### Informe o saldo inicial da conta: ");
-        saldo = sc.nextInt();
+        saldo = sc.nextDouble();
         sc.nextLine();
-        System.out.println("### Informe o numero da conta: ");
-        numero = sc.nextInt();
-        sc.nextLine();
-
-        Conta newConta = factory.createConta(agencia, saldo, numero);
+        Conta newConta = factory.createConta(agencia, saldo);
         selectedClient.addConta(newConta);
         System.out.println("\n### Conta criada com sucesso");
+        System.out.println("### Dados da conta: " + newConta.toString());
 
         break;
+
       case 8:
 
         System.out.println("\n### Informe o index do cliente");
@@ -107,7 +105,48 @@ public class Main {
 
         break;
       case 9:
+
+        System.out.println("\n### Informe o índice do cliente:");
+        System.out.println(clientesToString(listaClientes));
+
+        if (listaClientes.isEmpty()) {
+            System.out.println("### Nenhum cliente cadastrado!");
+            break;
+        }
+
+        int clienteIndex = sc.nextInt();
+        sc.nextLine();
+
+        if (clienteIndex < 0 || clienteIndex >= listaClientes.size()) {
+            System.out.println("### Índice de cliente inválido!");
+            break;
+        }
+
+        Cliente clienteSelecionado = listaClientes.get(clienteIndex);
+        ArrayList<Conta> contasCliente = clienteSelecionado.getContas();
+
+        if (contasCliente.isEmpty()) {
+            System.out.println("### Este cliente não possui contas para excluir!");
+            break;
+        }
+
+        System.out.println("\n### Contas do cliente:");
+        System.out.println(clienteSelecionado.contasToString());
+        System.out.println("Informe o índice da conta que deseja excluir:");
+
+        int contaIndex = sc.nextInt();
+        sc.nextLine();
+
+        if (contaIndex < 0 || contaIndex >= contasCliente.size()) {
+            System.out.println("### Índice de conta inválido!");
+            break;
+        }
+
+        Conta contaRemovida = clienteSelecionado.removeConta(contaIndex);
+        System.out.println("### Conta " + contaRemovida.getNumero() + " removida com sucesso!");
+
         break;
+      
       default:
         System.out.println("\n### Opcao invalida!");
         break;

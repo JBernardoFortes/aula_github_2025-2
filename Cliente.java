@@ -33,4 +33,13 @@ public class Cliente {
   public Integer getId() { return this.id; }
   public String getNome() { return this.nome; }
   public String getCpf() { return this.cpf; }
+
+  public Conta removeConta(int index) {
+    if (index >= 0 && index < this.contas.size()) {
+        return this.contas.remove(index);
+    }
+    return null;
+  }
+
+
 }
