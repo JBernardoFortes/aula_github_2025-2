@@ -89,9 +89,24 @@ public class Main {
         break;
       case 8:
 
+        System.out.println("\n### Informe o index do cliente");
+        System.out.println(clientesToString(listaClientes));
+        Cliente selectedClient2 = listaClientes.get(sc.nextInt());
+        sc.nextLine();
+        if (selectedClient2 == null) {
+          System.out.println("\n### Opcao invalida!");
+          break;
+        }
+        ArrayList<Conta> contas = selectedClient2.getContas();
+		int i = 0;
+        for (Conta c : contas) {
+          System.out.println(++i+" - Conta"+"\nNumero da Conta: " + c.getNumero() +
+                             "\nSaldo: " + c.getSaldo() +
+                             "\nAgencia: " + c.getAgencia() + "\n");
+        }
+
         break;
       case 9:
-
         break;
       default:
         System.out.println("\n### Opcao invalida!");
