@@ -27,7 +27,7 @@ public class Main {
                                            "Operacoes", "Cadastrar Cliente",
                                            "Listar Clientes", "Criar Conta",
                                            "Listar Contas", "Excluir Conta"));
-    ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
     int op = 4;
     while (op != 0) {
       op = mainMenu.getSelection(sc);
@@ -69,22 +69,19 @@ public class Main {
 
         System.out.println("### Cliente selecionado : " +
                            selectedClient.getNome());
-        System.out.println("### Crie e vincule a conta ao cliente: ");
 
-        int agencia, saldo, numero;
+        int agencia;
+        double saldo;
         System.out.println("### Informe o numero da agencia: ");
         agencia = sc.nextInt();
         sc.nextLine();
         System.out.println("### Informe o saldo inicial da conta: ");
-        saldo = sc.nextInt();
+        saldo = sc.nextDouble();
         sc.nextLine();
-        System.out.println("### Informe o numero da conta: ");
-        numero = sc.nextInt();
-        sc.nextLine();
-
-        Conta newConta = factory.createConta(agencia, saldo, numero);
+        Conta newConta = factory.createConta(agencia, saldo);
         selectedClient.addConta(newConta);
         System.out.println("\n### Conta criada com sucesso");
+        System.out.println("### Dados da conta: " + newConta.toString());
 
         break;
       case 8:
