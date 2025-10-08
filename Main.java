@@ -26,8 +26,8 @@ public class Main {
                              Arrays.asList("Sair", "Conta", "Cliente",
                                            "Operacoes", "Cadastrar Cliente",
                                            "Listar Clientes", "Criar Conta",
-                                           "Listar Contas", "Excluir Conta"));
-    ArrayList<Cliente> listaClientes = new ArrayList<>();
+                                           "Listar Contas", "Excluir Conta", "Excluir Cliente"));
+    ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
     int op = 4;
     while (op != 0) {
       op = mainMenu.getSelection(sc);
@@ -69,39 +69,24 @@ public class Main {
 
         System.out.println("### Cliente selecionado : " +
                            selectedClient.getNome());
+        System.out.println("### Crie e vincule a conta ao cliente: ");
 
-        int agencia;
-        double saldo;
+        int agencia, saldo, numero;
         System.out.println("### Informe o numero da agencia: ");
         agencia = sc.nextInt();
         sc.nextLine();
         System.out.println("### Informe o saldo inicial da conta: ");
-        saldo = sc.nextDouble();
+        saldo = sc.nextInt();
         sc.nextLine();
+        
+
         Conta newConta = factory.createConta(agencia, saldo);
         selectedClient.addConta(newConta);
         System.out.println("\n### Conta criada com sucesso");
-        System.out.println("### Dados da conta: " + newConta.toString());
 
         break;
 
       case 8:
-
-        System.out.println("\n### Informe o index do cliente");
-        System.out.println(clientesToString(listaClientes));
-        Cliente selectedClient2 = listaClientes.get(sc.nextInt());
-        sc.nextLine();
-        if (selectedClient2 == null) {
-          System.out.println("\n### Opcao invalida!");
-          break;
-        }
-        ArrayList<Conta> contas = selectedClient2.getContas();
-		int i = 0;
-        for (Conta c : contas) {
-          System.out.println(++i+" - Conta"+"\nNumero da Conta: " + c.getNumero() +
-                             "\nSaldo: " + c.getSaldo() +
-                             "\nAgencia: " + c.getAgencia() + "\n");
-        }
 
         break;
       case 9:
@@ -144,6 +129,36 @@ public class Main {
 
         Conta contaRemovida = clienteSelecionado.removeConta(contaIndex);
         System.out.println("### Conta " + contaRemovida.getNumero() + " removida com sucesso!");
+
+        break;
+
+      case 10:
+        if (listaClientes.isEmpty()) {
+            System.out.println("### Nenhum cliente cadastrado!");
+            break;
+        }
+
+        System.out.println("\n### Clientes cadastrados:");
+        System.out.println(clientesToString(listaClientes));
+        System.out.print("Informe o índice do cliente que deseja excluir: ");
+        int indiceCliente = sc.nextInt();
+        sc.nextLine();
+
+        if (indiceCliente < 0 || indiceCliente >= listaClientes.size()) {
+            System.out.println("### Índice inválido!");
+            break;
+        }
+
+        Cliente clienteExcluir = listaClientes.get(indiceCliente);
+        System.out.println("### Confirma exclusão do cliente " + clienteExcluir.getNome() + "? (s/n)");
+        String confirm = sc.nextLine();
+
+        if (confirm.equalsIgnoreCase("s")) {
+            Factory.removerCliente(listaClientes, indiceCliente);
+            System.out.println("### Cliente removido com sucesso!");
+        } else {
+            System.out.println("### Operação cancelada.");
+        }
 
         break;
       
