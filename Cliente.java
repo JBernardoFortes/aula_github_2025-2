@@ -28,6 +28,7 @@ public class Cliente {
     }
     return contasString;
   }
+
   public ArrayList<Conta> getContas() { return this.contas; }
   public Integer getId() { return this.id; }
   public String getNome() { return this.nome; }
