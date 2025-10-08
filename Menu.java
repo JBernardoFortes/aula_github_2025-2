@@ -15,32 +15,29 @@ public class Menu {
     this.options = options;
   }
 
-  public int getSelection() {
+  public int getSelection(Scanner scanner) {
     int op = -1;
     while (op == -1) {
       System.out.println(title + "\n");
       int i = 0;
       for (String option : options) {
-        System.out.println(i++ + " - " + option);
+        System.out.println(++i + " - " + option);
       }
 
       System.out.println("Informe a opcao desejada. ");
-      Scanner s = new Scanner(System.in);
-      String str = s.nextLine();
+      String str = scanner.nextLine();
       try {
         op = Integer.parseInt(str);
       } catch (NumberFormatException e) {
         op = 0;
       }
       if (op == 0) {
-        s.close();
         return op;
       }
       if (op >= i) {
         System.out.println("Opcao errada!");
         op = -1;
       }
-      s.close();
     }
 
     return op;

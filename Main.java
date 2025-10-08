@@ -30,22 +30,21 @@ public class Main {
     ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
     int op = 4;
     while (op != 0) {
-      op = mainMenu.getSelection();
+      op = mainMenu.getSelection(sc);
       switch (op) {
       case 0:
         break;
       case 1:
-        // Sair
+
         op = 0;
         break;
       case 2:
-        // Conta
+
         break;
       case 3:
-        // Cliente
+
         break;
       case 4:
-        // Operacoes
 
         break;
       case 5:
@@ -58,10 +57,11 @@ public class Main {
 
         break;
       case 7:
-        // Criar conta
+
         System.out.println("\n### Informe o index do cliente");
         System.out.println(clientesToString(listaClientes));
         Cliente selectedClient = listaClientes.get(sc.nextInt());
+        sc.nextLine();
         if (selectedClient == null) {
           System.out.println("\n### Opcao invalida!");
           break;
@@ -74,22 +74,23 @@ public class Main {
         int agencia, saldo, numero;
         System.out.println("### Informe o numero da agencia: ");
         agencia = sc.nextInt();
+        sc.nextLine();
         System.out.println("### Informe o saldo inicial da conta: ");
         saldo = sc.nextInt();
+        sc.nextLine();
         System.out.println("### Informe o numero da conta: ");
         numero = sc.nextInt();
+        sc.nextLine();
 
         Conta newConta = factory.createConta(agencia, saldo, numero);
         selectedClient.addConta(newConta);
         System.out.println("\n### Conta criada com sucesso");
-        // processo de criacao de conta
 
         break;
       case 8:
-        // listar contas
+
         break;
       case 9:
-        // Excluir uma conta
 
         break;
       default:
@@ -100,10 +101,3 @@ public class Main {
     System.out.println("\n### Fim");
   }
 }
-
-// Cada cliente vai ter um array de contas,
-// Ele mesmo vai administrar essas contas
-
-// Quando for escolhido criar conta, vai ser listado todos os clientes, de modo
-// que se possa escolher dessa lista de clientes qual vai ser o dono da conta
-// pelo index da lista dele
