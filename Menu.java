@@ -34,7 +34,7 @@ public class Menu {
       if (op == 0) {
         return op;
       }
-      if (op >= i) {
+      if (op > i) {
         System.out.println("Opcao errada!");
         op = -1;
       }
