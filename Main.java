@@ -87,12 +87,53 @@ public class Main {
         System.out.println("\n### Conta criada com sucesso");
 
         break;
+
       case 8:
 
         break;
       case 9:
 
+        System.out.println("\n### Informe o índice do cliente:");
+        System.out.println(clientesToString(listaClientes));
+
+        if (listaClientes.isEmpty()) {
+            System.out.println("### Nenhum cliente cadastrado!");
+            break;
+        }
+
+        int clienteIndex = sc.nextInt();
+        sc.nextLine();
+
+        if (clienteIndex < 0 || clienteIndex >= listaClientes.size()) {
+            System.out.println("### Índice de cliente inválido!");
+            break;
+        }
+
+        Cliente clienteSelecionado = listaClientes.get(clienteIndex);
+        ArrayList<Conta> contasCliente = clienteSelecionado.getContas();
+
+        if (contasCliente.isEmpty()) {
+            System.out.println("### Este cliente não possui contas para excluir!");
+            break;
+        }
+
+        System.out.println("\n### Contas do cliente:");
+        System.out.println(clienteSelecionado.contasToString());
+        System.out.println("Informe o índice da conta que deseja excluir:");
+
+        int contaIndex = sc.nextInt();
+        sc.nextLine();
+
+        if (contaIndex < 0 || contaIndex >= contasCliente.size()) {
+            System.out.println("### Índice de conta inválido!");
+            break;
+        }
+
+        Conta contaRemovida = clienteSelecionado.removeConta(contaIndex);
+        System.out.println("### Conta " + contaRemovida.getNumero() + " removida com sucesso!");
+
         break;
+      
       default:
         System.out.println("\n### Opcao invalida!");
         break;
